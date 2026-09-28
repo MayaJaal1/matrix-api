@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>API Access · Secure Key Generation</title>
+<title>MAYA JAAL · Matrix Key</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
   html, body {
-    height: 100%;
+    min-height: 100%;
     background: #000;
     font-family: 'Courier New', monospace;
-    overflow: hidden;
+    overflow-x: hidden;
     color: #00ff88;
   }
 
@@ -26,11 +26,11 @@
   .overlay {
     position: relative;
     z-index: 2;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 24px 16px;
     background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 80%);
   }
 
@@ -40,7 +40,7 @@
     background: rgba(0, 15, 8, 0.85);
     border: 1px solid rgba(0, 255, 136, 0.35);
     border-radius: 14px;
-    padding: 38px 34px;
+    padding: 30px 24px;
     backdrop-filter: blur(6px);
     box-shadow:
       0 0 30px rgba(0, 255, 136, 0.15),
@@ -53,11 +53,60 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  /* ---------- LOGO ---------- */
+  .logo-container {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .logo-container img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 25px rgba(0, 255, 136, 0.7),
+                0 0 60px rgba(0, 255, 136, 0.3);
+    animation: logoPulse 3s infinite alternate ease-in-out;
+    border: 2px solid rgba(0, 255, 136, 0.6);
+  }
+
+  @keyframes logoPulse {
+    0%   { transform: scale(1);    box-shadow: 0 0 20px rgba(0,255,136,0.5); }
+    100% { transform: scale(1.05); box-shadow: 0 0 40px rgba(0,255,136,0.9); }
+  }
+
+  /* ---------- ROTATING MAYA JAAL TITLE ---------- */
+  .matrix-title {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(26px, 8vw, 44px);
+    font-weight: 900;
+    color: #00ff88;
+    text-align: center;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    text-shadow:
+      0 0 10px #00ff88,
+      0 0 20px #00ff88,
+      0 0 40px rgba(0,255,136,0.6);
+    margin: 14px 0 6px;
+    animation: swingMatrix 4s infinite ease-in-out;
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+
+  @keyframes swingMatrix {
+    0%   { transform: perspective(800px) rotateY(-22deg); }
+    50%  { transform: perspective(800px) rotateY(22deg);  }
+    100% { transform: perspective(800px) rotateY(-22deg); }
+  }
+
   .brand {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     margin-bottom: 6px;
+    margin-top: 10px;
   }
 
   .dot {
@@ -74,7 +123,7 @@
   }
 
   .brand span {
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: #00ff88;
@@ -82,18 +131,20 @@
   }
 
   h1 {
-    font-size: 26px;
+    font-size: 22px;
     font-weight: 700;
     color: #d6ffe8;
     margin-bottom: 8px;
     letter-spacing: 1px;
+    text-align: center;
   }
 
   .subtitle {
-    font-size: 13px;
+    font-size: 12.5px;
     color: #4fbf8b;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
     line-height: 1.6;
+    text-align: center;
   }
 
   .status-line {
@@ -196,10 +247,10 @@
 
   .btn {
     flex: 1;
-    min-width: 160px;
+    min-width: 140px;
     padding: 13px 18px;
     border-radius: 8px;
-    font-size: 13px;
+    font-size: 12px;
     font-family: inherit;
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -252,14 +303,14 @@
 
   .stat-row {
     display: flex;
-    gap: 20px;
+    gap: 12px;
     margin-top: 16px;
     flex-wrap: wrap;
   }
 
   .stat {
     flex: 1;
-    min-width: 130px;
+    min-width: 110px;
     padding: 12px 14px;
     background: rgba(0, 255, 136, 0.04);
     border-left: 2px solid #00ff88;
@@ -275,15 +326,17 @@
   }
 
   .stat-value {
-    font-size: 15px;
+    font-size: 14px;
     color: #d6ffe8;
   }
 
   @media (max-width: 520px) {
-    .card { padding: 26px 20px; }
-    h1 { font-size: 20px; }
+    .card { padding: 22px 16px; }
+    .logo-container img { width: 100px; height: 100px; }
+    h1 { font-size: 19px; }
     #apiKey { font-size: 13px; }
     .key-box { padding: 16px 52px 16px 16px; }
+    .matrix-title { letter-spacing: 3px; }
   }
 </style>
 </head>
@@ -293,13 +346,23 @@
 
 <div class="overlay">
   <div class="card">
+
+    <!-- LOGO -->
+    <div class="logo-container">
+      <img src="logo.jpg" alt="Maya Jaal Logo" />
+    </div>
+
+    <!-- ROTATING TITLE -->
+    <div class="matrix-title">MAYA JAAL</div>
+
     <div class="brand">
       <div class="dot"></div>
       <span>Secure Access Node</span>
     </div>
-    <h1>Your API Key</h1>
+
+    <h1>Your Matrix Key</h1>
     <p class="subtitle">
-      Aapki personal API key niche generate ho rahi hai. Isse apne Telegram bot ke through connect karein aur real-time views &amp; income track karein.
+      Aapki personal Matrix Key niche generate ho rahi hai. Isse apne Telegram bot ke through connect karein aur real-time views &amp; income track karein.
     </p>
 
     <div class="status-line" id="status">initializing secure channel...</div>
@@ -331,8 +394,8 @@
 
     <div class="footer-note">
       <strong style="color:#7fffb8;">Kaise use karein:</strong><br/>
-      1. Upar wali API key copy karein.<br/>
-      2. Telegram bot kholiye aur <code>/connect &lt;api_key&gt;</code> bhejein.<br/>
+      1. Upar wali Matrix Key copy karein.<br/>
+      2. Telegram bot kholiye aur <code>/connect &lt;matrix_key&gt;</code> bhejein.<br/>
       3. Apne views aur income bot ke andar hi dikhengi — <code>/stats</code> command se.<br/>
       <span style="color:#ff6b6b;">⚠ Ye key sirf aapke liye hai. Kisi ke saath share na karein.</span>
     </div>
@@ -446,7 +509,7 @@ function runGenerationFlow() {
     'verifying node integrity...',
     'generating entropy pool...',
     'signing cryptographic token...',
-    'finalizing api key...'
+    'finalizing matrix key...'
   ];
 
   let stepIndex = 0;
@@ -460,7 +523,7 @@ function runGenerationFlow() {
       clearInterval(stepTimer);
 
       currentKey = generateKey();
-      statusEl.textContent = 'key generated successfully ✓';
+      statusEl.textContent = 'matrix key generated successfully ✓';
       caretEl.style.display = 'inline-block';
 
       scrambleEffect(currentKey, 1800, () => {
@@ -494,4 +557,4 @@ window.addEventListener('load', () => {
 });
 </script>
 </body>
-  </html>
+</html>
