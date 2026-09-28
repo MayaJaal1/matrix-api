@@ -6,337 +6,38 @@
 <title>MAYA JAAL · Matrix Key</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  html, body {
-    min-height: 100%;
-    background: #000;
-    font-family: 'Courier New', monospace;
-    overflow-x: hidden;
-    color: #00ff88;
-  }
-
-  #matrix {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    opacity: 0.55;
-  }
-
-  .overlay {
-    position: relative;
-    z-index: 2;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 16px;
-    background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 80%);
-  }
-
-  .card {
-    width: 100%;
-    max-width: 720px;
-    background: rgba(0, 15, 8, 0.85);
-    border: 1px solid rgba(0, 255, 136, 0.35);
-    border-radius: 14px;
-    padding: 30px 24px;
-    backdrop-filter: blur(6px);
-    box-shadow:
-      0 0 30px rgba(0, 255, 136, 0.15),
-      inset 0 0 40px rgba(0, 255, 136, 0.04);
-    animation: fadeIn 0.8s ease-out;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .logo-container {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-
-  .logo-container img {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 0 25px rgba(0, 255, 136, 0.7),
-                0 0 60px rgba(0, 255, 136, 0.3);
-    animation: logoPulse 3s infinite alternate ease-in-out;
-    border: 2px solid rgba(0, 255, 136, 0.6);
-  }
-
-  @keyframes logoPulse {
-    0%   { transform: scale(1);    box-shadow: 0 0 20px rgba(0,255,136,0.5); }
-    100% { transform: scale(1.05); box-shadow: 0 0 40px rgba(0,255,136,0.9); }
-  }
-
-  .matrix-title {
-    font-family: 'Courier New', monospace;
-    font-size: clamp(26px, 8vw, 44px);
-    font-weight: 900;
-    color: #00ff88;
-    text-align: center;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    text-shadow:
-      0 0 10px #00ff88,
-      0 0 20px #00ff88,
-      0 0 40px rgba(0,255,136,0.6);
-    margin: 14px 0 6px;
-    animation: swingMatrix 4s infinite ease-in-out;
-    transform-style: preserve-3d;
-    perspective: 800px;
-  }
-
-  @keyframes swingMatrix {
-    0%   { transform: perspective(800px) rotateY(-22deg); }
-    50%  { transform: perspective(800px) rotateY(22deg);  }
-    100% { transform: perspective(800px) rotateY(-22deg); }
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 6px;
-    margin-top: 10px;
-  }
-
-  .dot {
-    width: 9px; height: 9px;
-    border-radius: 50%;
-    background: #00ff88;
-    box-shadow: 0 0 10px #00ff88;
-    animation: pulse 1.6s infinite;
-  }
-
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50%     { opacity: 0.3; }
-  }
-
-  .brand span {
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #00ff88;
-    opacity: 0.8;
-  }
-
-  h1 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #d6ffe8;
-    margin-bottom: 8px;
-    letter-spacing: 1px;
-    text-align: center;
-  }
-
-  .subtitle {
-    font-size: 12.5px;
-    color: #4fbf8b;
-    margin-bottom: 24px;
-    line-height: 1.6;
-    text-align: center;
-  }
-
-  .status-line {
-    font-size: 12px;
-    color: #00ff88;
-    margin-bottom: 14px;
-    letter-spacing: 1px;
-    min-height: 16px;
-    opacity: 0.85;
-  }
-
+  html, body { min-height: 100%; background: #000; font-family: 'Courier New', monospace; overflow-x: hidden; color: #00ff88; }
+  #matrix { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.55; }
+  .overlay { position: relative; z-index: 2; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 16px; background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 80%); }
+  .card { width: 100%; max-width: 720px; background: rgba(0, 15, 8, 0.85); border: 1px solid rgba(0, 255, 136, 0.35); border-radius: 14px; padding: 30px 24px; backdrop-filter: blur(6px); box-shadow: 0 0 30px rgba(0, 255, 136, 0.15); animation: fadeIn 0.8s ease-out; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .logo-container { text-align: center; margin-bottom: 10px; }
+  .logo-container img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 25px rgba(0, 255, 136, 0.7); border: 2px solid rgba(0, 255, 136, 0.6); }
+  .matrix-title { font-family: 'Courier New', monospace; font-size: clamp(26px, 8vw, 44px); font-weight: 900; color: #00ff88; text-align: center; letter-spacing: 6px; text-transform: uppercase; text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88, 0 0 40px rgba(0,255,136,0.6); margin: 14px 0 6px; animation: swingMatrix 4s infinite ease-in-out; transform-style: preserve-3d; perspective: 800px; }
+  @keyframes swingMatrix { 0% { transform: perspective(800px) rotateY(-22deg); } 50% { transform: perspective(800px) rotateY(22deg); } 100% { transform: perspective(800px) rotateY(-22deg); } }
+  .brand { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px; margin-top: 10px; }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 10px #00ff88; animation: pulse 1.6s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .brand span { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: #00ff88; opacity: 0.8; }
+  h1 { font-size: 22px; font-weight: 700; color: #d6ffe8; margin-bottom: 8px; text-align: center; }
+  .subtitle { font-size: 12.5px; color: #4fbf8b; margin-bottom: 20px; line-height: 1.6; text-align: center; }
+  .status-line { font-size: 12px; color: #00ff88; margin-bottom: 10px; letter-spacing: 1px; min-height: 16px; }
   .status-line::before { content: "> "; opacity: 0.6; }
-
-  .key-box {
-    position: relative;
-    background: #000;
-    border: 1px solid rgba(0, 255, 136, 0.4);
-    border-radius: 10px;
-    padding: 20px 60px 20px 20px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    min-height: 66px;
-    display: flex;
-    align-items: center;
-  }
-
-  .key-box::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent, rgba(0,255,136,0.08), transparent);
-    transform: translateX(-100%);
-    animation: scan 3s infinite;
-    pointer-events: none;
-  }
-
-  @keyframes scan {
-    0%   { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-  }
-
-  #apiKey {
-    font-size: 16px;
-    color: #00ff88;
-    word-break: break-all;
-    letter-spacing: 2px;
-    text-shadow: 0 0 6px rgba(0,255,136,0.6);
-    font-family: 'Courier New', monospace;
-    font-weight: bold;
-  }
-
-  .caret {
-    display: inline-block;
-    width: 9px;
-    height: 17px;
-    background: #00ff88;
-    margin-left: 3px;
-    vertical-align: middle;
-    animation: blink 0.9s step-end infinite;
-    box-shadow: 0 0 8px #00ff88;
-  }
-
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-
-  .copy-btn {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: transparent;
-    border: 1px solid rgba(0, 255, 136, 0.5);
-    color: #00ff88;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 11px;
-    letter-spacing: 1px;
-    transition: all 0.2s;
-    font-family: inherit;
-  }
-
-  .copy-btn:hover {
-    background: rgba(0, 255, 136, 0.12);
-    box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
-  }
-
-  .copy-btn.copied {
-    background: #00ff88;
-    color: #001a0e;
-    border-color: #00ff88;
-  }
-
-  .actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 22px;
-    flex-wrap: wrap;
-  }
-
-  .btn {
-    flex: 1;
-    min-width: 140px;
-    padding: 13px 18px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-family: inherit;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-decoration: none;
-    text-align: center;
-    transition: all 0.25s;
-    border: 1px solid transparent;
-  }
-
-  .btn-primary {
-    background: linear-gradient(135deg, #00ff88, #00c96a);
-    color: #001a0e;
-    font-weight: 700;
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.35);
-  }
-
-  .btn-primary:hover {
-    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
-    transform: translateY(-1px);
-  }
-
-  .btn-ghost {
-    background: transparent;
-    color: #00ff88;
-    border: 1px solid rgba(0, 255, 136, 0.4);
-  }
-
-  .btn-ghost:hover {
-    background: rgba(0, 255, 136, 0.08);
-  }
-
-  .footer-note {
-    margin-top: 26px;
-    padding-top: 18px;
-    border-top: 1px dashed rgba(0, 255, 136, 0.2);
-    font-size: 11.5px;
-    color: #4fbf8b;
-    line-height: 1.7;
-    letter-spacing: 0.3px;
-  }
-
-  .footer-note code {
-    background: rgba(0, 255, 136, 0.08);
-    padding: 2px 6px;
-    border-radius: 4px;
-    color: #7fffb8;
-    font-size: 11px;
-  }
-
-  .stat-row {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-    flex-wrap: wrap;
-  }
-
-  .stat {
-    flex: 1;
-    min-width: 110px;
-    padding: 12px 14px;
-    background: rgba(0, 255, 136, 0.04);
-    border-left: 2px solid #00ff88;
-    border-radius: 4px;
-  }
-
-  .stat-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #4fbf8b;
-    margin-bottom: 4px;
-  }
-
-  .stat-value {
-    font-size: 14px;
-    color: #d6ffe8;
-  }
-
-  @media (max-width: 520px) {
-    .card { padding: 22px 16px; }
-    .logo-container img { width: 100px; height: 100px; }
-    h1 { font-size: 19px; }
-    #apiKey { font-size: 14px; letter-spacing: 1.5px; }
-    .key-box { padding: 16px 52px 16px 16px; }
-    .matrix-title { letter-spacing: 3px; }
-  }
+  .debug-box { font-size: 11px; color: #ffaa00; background: #1a0f00; border: 1px solid #553300; padding: 10px; border-radius: 6px; margin-bottom: 14px; min-height: 20px; word-break: break-all; }
+  .debug-box.ok { color: #00ff88; background: #001a0e; border-color: #00ff88; }
+  .debug-box.err { color: #ff5555; background: #1a0000; border-color: #ff3333; }
+  .key-box { position: relative; background: #000; border: 1px solid rgba(0, 255, 136, 0.4); border-radius: 10px; padding: 20px 60px 20px 20px; margin-bottom: 16px; min-height: 66px; display: flex; align-items: center; }
+  #apiKey { font-size: 16px; color: #00ff88; word-break: break-all; letter-spacing: 2px; text-shadow: 0 0 6px rgba(0,255,136,0.6); font-weight: bold; }
+  .caret { display: inline-block; width: 9px; height: 17px; background: #00ff88; margin-left: 3px; vertical-align: middle; animation: blink 0.9s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .copy-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: transparent; border: 1px solid rgba(0, 255, 136, 0.5); color: #00ff88; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; font-family: inherit; }
+  .copy-btn.copied { background: #00ff88; color: #001a0e; }
+  .actions { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
+  .btn { flex: 1; min-width: 140px; padding: 13px 18px; border-radius: 8px; font-size: 12px; font-family: inherit; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; text-decoration: none; text-align: center; border: 1px solid transparent; }
+  .btn-primary { background: linear-gradient(135deg, #00ff88, #00c96a); color: #001a0e; font-weight: 700; }
+  .btn-ghost { background: transparent; color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.4); }
+  .footer-note { margin-top: 26px; padding-top: 18px; border-top: 1px dashed rgba(0, 255, 136, 0.2); font-size: 11.5px; color: #4fbf8b; line-height: 1.7; }
+  .footer-note code { background: rgba(0, 255, 136, 0.08); padding: 2px 6px; border-radius: 4px; color: #7fffb8; }
 </style>
 </head>
 <body>
@@ -345,67 +46,57 @@
 
 <div class="overlay">
   <div class="card">
-
     <div class="logo-container">
       <img src="logo.jpg" alt="Maya Jaal Logo" />
     </div>
-
     <div class="matrix-title">MAYA JAAL</div>
-
     <div class="brand">
       <div class="dot"></div>
       <span>Secure Access Node</span>
     </div>
-
     <h1>Your Matrix Key</h1>
-    <p class="subtitle">
-      Aapki personal Matrix Key niche generate ho rahi hai. Isse apne Telegram bot ke through connect karein aur real-time views &amp; income track karein.
-    </p>
+    <p class="subtitle">Aapki personal Matrix Key niche generate ho rahi hai.</p>
 
     <div class="status-line" id="status">initializing secure channel...</div>
+    <div class="debug-box" id="debug">Debug: waiting...</div>
 
     <div class="key-box">
       <span id="apiKey"></span><span class="caret" id="caret" style="display:none"></span>
       <button class="copy-btn" id="copyBtn" style="display:none;" onclick="copyKey()">COPY</button>
     </div>
 
-    <div class="stat-row" id="statRow" style="display:none;">
-      <div class="stat">
-        <div class="stat-label">Status</div>
-        <div class="stat-value" style="color:#00ff88;">● Active</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Length</div>
-        <div class="stat-value">24 Chars</div>
-      </div>
-      <div class="stat">
-        <div class="stat-label">Created</div>
-        <div class="stat-value" id="createdAt">—</div>
-      </div>
-    </div>
-
     <div class="actions">
       <a href="https://t.me/Mayajaalfilebot" target="_blank" class="btn btn-primary">Open Telegram Bot</a>
       <button class="btn btn-ghost" onclick="regenerate()">Regenerate Key</button>
     </div>
-
     <div class="footer-note">
       <strong style="color:#7fffb8;">Kaise use karein:</strong><br/>
       1. Upar wali Matrix Key copy karein.<br/>
-      2. Telegram bot kholiye aur <code>/connect YOUR_KEY</code> bhejein.<br/>
-      3. Apne views aur income bot ke andar hi dikhengi — <code>/stats</code> command se.<br/>
-      <span style="color:#ff6b6b;">⚠ Ye key sirf aapke liye hai. Kisi ke saath share na karein.</span>
+      2. Telegram bot kholiye aur <code>/api YOUR_KEY</code> bhejein.
     </div>
   </div>
 </div>
 
 <script>
+/* ═══════════ CONFIG ═══════════ */
+const params = new URLSearchParams(window.location.search);
+const telegramId = params.get('tg');
+const BACKEND_URL = 'https://mayajaal-backend.vercel.app';
+
+const debugEl = document.getElementById('debug');
+
+function setDebug(msg, type) {
+  debugEl.textContent = 'Debug: ' + msg;
+  debugEl.className = 'debug-box' + (type ? ' ' + type : '');
+}
+
+setDebug('telegram_id = ' + (telegramId || 'MISSING! URL mein ?tg= lagao'), telegramId ? '' : 'err');
+
+/* ═══════════ MATRIX RAIN ═══════════ */
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-
 let cols, drops;
-const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFXYZ@#$%&*'.split('');
-
+const chars = 'アイウエオカキクケコ0123456789ABCDEFXYZ'.split('');
 function resize() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -414,33 +105,27 @@ function resize() {
 }
 resize();
 window.addEventListener('resize', resize);
-
 function drawMatrix() {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-
   ctx.font = '14px "Courier New", monospace';
-
   for (let i = 0; i < drops.length; i++) {
     const text = chars[Math.floor(Math.random() * chars.length)];
     const x = i * 14;
     const y = drops[i] * 14;
-
     ctx.fillStyle = '#ccffe5';
     ctx.fillText(text, x, y);
     ctx.fillStyle = '#00ff88';
     ctx.fillText(text, x, y - 14);
-
     if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
     drops[i]++;
   }
 }
 setInterval(drawMatrix, 45);
 
-/* ---------- 24-CHAR TOKEN GENERATOR ---------- */
-const chars24   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-const hexChars  = '0123456789abcdef';
-
+/* ═══════════ KEY GEN ═══════════ */
+const chars24 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+const hexChars = '0123456789abcdef';
 function randomFrom(set, len) {
   let out = '';
   const arr = new Uint32Array(len);
@@ -448,43 +133,53 @@ function randomFrom(set, len) {
   for (let i = 0; i < len; i++) out += set[arr[i] % set.length];
   return out;
 }
-
-function generateKey() {
-  // 24-character uppercase + digits token (bot format match)
-  return randomFrom(chars24, 24);
-}
+function generateKey() { return randomFrom(chars24, 24); }
 
 const apiKeyEl = document.getElementById('apiKey');
-const caretEl  = document.getElementById('caret');
-const copyBtn  = document.getElementById('copyBtn');
+const caretEl = document.getElementById('caret');
+const copyBtn = document.getElementById('copyBtn');
 const statusEl = document.getElementById('status');
-const statRow  = document.getElementById('statRow');
-const createdAtEl = document.getElementById('createdAt');
-
 let currentKey = '';
 
+/* ═══════════ SAVE TO BACKEND ═══════════ */
+async function saveKeyToServer(key) {
+  setDebug('saving key to server...');
+  if (!telegramId) {
+    setDebug('No telegram_id in URL — key NOT saved!', 'err');
+    return;
+  }
+  try {
+    const url = BACKEND_URL + '/save-key';
+    setDebug('POST ' + url);
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ telegram_id: telegramId, key: key })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      setDebug('✅ Key saved! (' + telegramId + ')', 'ok');
+    } else {
+      setDebug('❌ Server error: ' + JSON.stringify(data), 'err');
+    }
+  } catch (err) {
+    setDebug('❌ Fetch failed: ' + err.message, 'err');
+  }
+}
+
+/* ═══════════ SCRAMBLE ═══════════ */
 function scrambleEffect(target, duration, onDone) {
   const totalFrames = Math.floor(duration / 30);
   let frame = 0;
-  const realChars = target.split('');
   const revealStart = Math.floor(totalFrames * 0.55);
-
-  const timer = setInterval(() => {
+  const timer = setInterval(function () {
     frame++;
     let display = '';
-
-    for (let i = 0; i < realChars.length; i++) {
-      const ch = realChars[i];
-      const revealPoint = revealStart + i;
-      if (frame >= revealPoint) {
-        display += ch;
-      } else {
-        display += hexChars[Math.floor(Math.random() * hexChars.length)];
-      }
+    for (let i = 0; i < target.length; i++) {
+      if (frame >= revealStart + i) display += target[i];
+      else display += hexChars[Math.floor(Math.random() * hexChars.length)];
     }
-
     apiKeyEl.textContent = display;
-
     if (frame >= totalFrames) {
       clearInterval(timer);
       apiKeyEl.textContent = target;
@@ -493,11 +188,11 @@ function scrambleEffect(target, duration, onDone) {
   }, 30);
 }
 
+/* ═══════════ MAIN FLOW ═══════════ */
 function runGenerationFlow() {
   apiKeyEl.textContent = '';
   caretEl.style.display = 'none';
   copyBtn.style.display = 'none';
-  statRow.style.display = 'none';
   currentKey = '';
 
   const steps = [
@@ -507,26 +202,25 @@ function runGenerationFlow() {
     'signing cryptographic token...',
     'finalizing matrix key...'
   ];
-
   let stepIndex = 0;
   statusEl.textContent = steps[0];
 
-  const stepTimer = setInterval(() => {
+  const stepTimer = setInterval(function () {
     stepIndex++;
     if (stepIndex < steps.length) {
       statusEl.textContent = steps[stepIndex];
     } else {
       clearInterval(stepTimer);
-
       currentKey = generateKey();
-      statusEl.textContent = 'matrix key generated successfully ✓';
+      statusEl.textContent = 'matrix key generated ✓';
       caretEl.style.display = 'inline-block';
 
-      scrambleEffect(currentKey, 1800, () => {
+      // Save to server
+      saveKeyToServer(currentKey);
+
+      scrambleEffect(currentKey, 1800, function () {
         caretEl.style.display = 'none';
         copyBtn.style.display = 'block';
-        statRow.style.display = 'flex';
-        createdAtEl.textContent = new Date().toLocaleString();
       });
     }
   }, 420);
@@ -534,21 +228,19 @@ function runGenerationFlow() {
 
 function copyKey() {
   if (!currentKey) return;
-  navigator.clipboard.writeText(currentKey).then(() => {
+  navigator.clipboard.writeText(currentKey).then(function () {
     copyBtn.textContent = 'COPIED ✓';
     copyBtn.classList.add('copied');
-    setTimeout(() => {
+    setTimeout(function () {
       copyBtn.textContent = 'COPY';
       copyBtn.classList.remove('copied');
     }, 1600);
   });
 }
 
-function regenerate() {
-  runGenerationFlow();
-}
+function regenerate() { runGenerationFlow(); }
 
-window.addEventListener('load', () => {
+window.addEventListener('load', function () {
   setTimeout(runGenerationFlow, 500);
 });
 </script>
