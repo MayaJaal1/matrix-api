@@ -156,7 +156,6 @@
 
   .status-line::before { content: "> "; opacity: 0.6; }
 
-  /* ═══ DEBUG BOX (naya) ═══ */
   .debug-box {
     font-size: 11px;
     color: #ffaa00;
@@ -583,7 +582,6 @@ function runGenerationFlow() {
       statusEl.textContent = 'matrix key generated ✓';
       caretEl.style.display = 'inline-block';
 
-      // Save to server (background)
       saveKeyToServer(currentKey);
 
       scrambleEffect(currentKey, 1800, function () {
