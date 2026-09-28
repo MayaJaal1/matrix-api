@@ -1,1 +1,497 @@
-https://t.me/Mayajaalfilebot
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>API Access · Secure Key Generation</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  html, body {
+    height: 100%;
+    background: #000;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    color: #00ff88;
+  }
+
+  #matrix {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.55;
+  }
+
+  .overlay {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 80%);
+  }
+
+  .card {
+    width: 100%;
+    max-width: 720px;
+    background: rgba(0, 15, 8, 0.85);
+    border: 1px solid rgba(0, 255, 136, 0.35);
+    border-radius: 14px;
+    padding: 38px 34px;
+    backdrop-filter: blur(6px);
+    box-shadow:
+      0 0 30px rgba(0, 255, 136, 0.15),
+      inset 0 0 40px rgba(0, 255, 136, 0.04);
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  .dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+    animation: pulse 1.6s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50%     { opacity: 0.3; }
+  }
+
+  .brand span {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #00ff88;
+    opacity: 0.8;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #d6ffe8;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #4fbf8b;
+    margin-bottom: 28px;
+    line-height: 1.6;
+  }
+
+  .status-line {
+    font-size: 12px;
+    color: #00ff88;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+    min-height: 16px;
+    opacity: 0.85;
+  }
+
+  .status-line::before { content: "> "; opacity: 0.6; }
+
+  .key-box {
+    position: relative;
+    background: #000;
+    border: 1px solid rgba(0, 255, 136, 0.4);
+    border-radius: 10px;
+    padding: 20px 60px 20px 20px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    min-height: 66px;
+    display: flex;
+    align-items: center;
+  }
+
+  .key-box::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(0,255,136,0.08), transparent);
+    transform: translateX(-100%);
+    animation: scan 3s infinite;
+    pointer-events: none;
+  }
+
+  @keyframes scan {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  #apiKey {
+    font-size: 15px;
+    color: #00ff88;
+    word-break: break-all;
+    letter-spacing: 0.5px;
+    text-shadow: 0 0 6px rgba(0,255,136,0.6);
+    font-family: 'Courier New', monospace;
+  }
+
+  .caret {
+    display: inline-block;
+    width: 9px;
+    height: 17px;
+    background: #00ff88;
+    margin-left: 3px;
+    vertical-align: middle;
+    animation: blink 0.9s step-end infinite;
+    box-shadow: 0 0 8px #00ff88;
+  }
+
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .copy-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 1px solid rgba(0, 255, 136, 0.5);
+    color: #00ff88;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 11px;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .copy-btn:hover {
+    background: rgba(0, 255, 136, 0.12);
+    box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+  }
+
+  .copy-btn.copied {
+    background: #00ff88;
+    color: #001a0e;
+    border-color: #00ff88;
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 160px;
+    padding: 13px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: inherit;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.25s;
+    border: 1px solid transparent;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #00ff88, #00c96a);
+    color: #001a0e;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.35);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: #00ff88;
+    border: 1px solid rgba(0, 255, 136, 0.4);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(0, 255, 136, 0.08);
+  }
+
+  .footer-note {
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px dashed rgba(0, 255, 136, 0.2);
+    font-size: 11.5px;
+    color: #4fbf8b;
+    line-height: 1.7;
+    letter-spacing: 0.3px;
+  }
+
+  .footer-note code {
+    background: rgba(0, 255, 136, 0.08);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #7fffb8;
+    font-size: 11px;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 20px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    flex: 1;
+    min-width: 130px;
+    padding: 12px 14px;
+    background: rgba(0, 255, 136, 0.04);
+    border-left: 2px solid #00ff88;
+    border-radius: 4px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #4fbf8b;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: 15px;
+    color: #d6ffe8;
+  }
+
+  @media (max-width: 520px) {
+    .card { padding: 26px 20px; }
+    h1 { font-size: 20px; }
+    #apiKey { font-size: 13px; }
+    .key-box { padding: 16px 52px 16px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div class="overlay">
+  <div class="card">
+    <div class="brand">
+      <div class="dot"></div>
+      <span>Secure Access Node</span>
+    </div>
+    <h1>Your API Key</h1>
+    <p class="subtitle">
+      Aapki personal API key niche generate ho rahi hai. Isse apne Telegram bot ke through connect karein aur real-time views &amp; income track karein.
+    </p>
+
+    <div class="status-line" id="status">initializing secure channel...</div>
+
+    <div class="key-box">
+      <span id="apiKey"></span><span class="caret" id="caret" style="display:none"></span>
+      <button class="copy-btn" id="copyBtn" style="display:none;" onclick="copyKey()">COPY</button>
+    </div>
+
+    <div class="stat-row" id="statRow" style="display:none;">
+      <div class="stat">
+        <div class="stat-label">Status</div>
+        <div class="stat-value" style="color:#00ff88;">● Active</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Plan</div>
+        <div class="stat-value">Free Tier</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Created</div>
+        <div class="stat-value" id="createdAt">—</div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a href="https://t.me/YOUR_BOT_USERNAME" target="_blank" class="btn btn-primary">Open Telegram Bot</a>
+      <button class="btn btn-ghost" onclick="regenerate()">Regenerate Key</button>
+    </div>
+
+    <div class="footer-note">
+      <strong style="color:#7fffb8;">Kaise use karein:</strong><br/>
+      1. Upar wali API key copy karein.<br/>
+      2. Telegram bot kholiye aur <code>/connect &lt;api_key&gt;</code> bhejein.<br/>
+      3. Apne views aur income bot ke andar hi dikhengi — <code>/stats</code> command se.<br/>
+      <span style="color:#ff6b6b;">⚠ Ye key sirf aapke liye hai. Kisi ke saath share na karein.</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+
+let cols, drops;
+const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789ABCDEFXYZ@#$%&*'.split('');
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  cols = Math.floor(canvas.width / 14);
+  drops = new Array(cols).fill(1);
+}
+resize();
+window.addEventListener('resize', resize);
+
+function drawMatrix() {
+  ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.font = '14px "Courier New", monospace';
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = chars[Math.floor(Math.random() * chars.length)];
+    const x = i * 14;
+    const y = drops[i] * 14;
+
+    ctx.fillStyle = '#ccffe5';
+    ctx.fillText(text, x, y);
+    ctx.fillStyle = '#00ff88';
+    ctx.fillText(text, x, y - 14);
+
+    if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix, 45);
+
+const charsFull = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const hexChars  = '0123456789abcdef';
+
+function randomFrom(set, len) {
+  let out = '';
+  const arr = new Uint32Array(len);
+  crypto.getRandomValues(arr);
+  for (let i = 0; i < len; i++) out += set[arr[i] % set.length];
+  return out;
+}
+
+function generateKey() {
+  const body = randomFrom(charsFull, 32);
+  return 'sk_live_' + body;
+}
+
+const apiKeyEl = document.getElementById('apiKey');
+const caretEl  = document.getElementById('caret');
+const copyBtn  = document.getElementById('copyBtn');
+const statusEl = document.getElementById('status');
+const statRow  = document.getElementById('statRow');
+const createdAtEl = document.getElementById('createdAt');
+
+let currentKey = '';
+
+function scrambleEffect(target, duration, onDone) {
+  const totalFrames = Math.floor(duration / 30);
+  let frame = 0;
+  const realChars = target.split('');
+  const revealStart = Math.floor(totalFrames * 0.55);
+
+  const timer = setInterval(() => {
+    frame++;
+    let display = '';
+
+    for (let i = 0; i < realChars.length; i++) {
+      const ch = realChars[i];
+      if (ch === '_') { display += '_'; continue; }
+
+      const revealPoint = revealStart + i;
+      if (frame >= revealPoint) {
+        display += ch;
+      } else {
+        display += hexChars[Math.floor(Math.random() * hexChars.length)];
+      }
+    }
+
+    apiKeyEl.textContent = display;
+
+    if (frame >= totalFrames) {
+      clearInterval(timer);
+      apiKeyEl.textContent = target;
+      if (onDone) onDone();
+    }
+  }, 30);
+}
+
+function runGenerationFlow() {
+  apiKeyEl.textContent = '';
+  caretEl.style.display = 'none';
+  copyBtn.style.display = 'none';
+  statRow.style.display = 'none';
+  currentKey = '';
+
+  const steps = [
+    'establishing secure channel...',
+    'verifying node integrity...',
+    'generating entropy pool...',
+    'signing cryptographic token...',
+    'finalizing api key...'
+  ];
+
+  let stepIndex = 0;
+  statusEl.textContent = steps[0];
+
+  const stepTimer = setInterval(() => {
+    stepIndex++;
+    if (stepIndex < steps.length) {
+      statusEl.textContent = steps[stepIndex];
+    } else {
+      clearInterval(stepTimer);
+
+      currentKey = generateKey();
+      statusEl.textContent = 'key generated successfully ✓';
+      caretEl.style.display = 'inline-block';
+
+      scrambleEffect(currentKey, 1800, () => {
+        caretEl.style.display = 'none';
+        copyBtn.style.display = 'block';
+        statRow.style.display = 'flex';
+        createdAtEl.textContent = new Date().toLocaleString();
+      });
+    }
+  }, 420);
+}
+
+function copyKey() {
+  if (!currentKey) return;
+  navigator.clipboard.writeText(currentKey).then(() => {
+    copyBtn.textContent = 'COPIED ✓';
+    copyBtn.classList.add('copied');
+    setTimeout(() => {
+      copyBtn.textContent = 'COPY';
+      copyBtn.classList.remove('copied');
+    }, 1600);
+  });
+}
+
+function regenerate() {
+  runGenerationFlow();
+}
+
+window.addEventListener('load', () => {
+  setTimeout(runGenerationFlow, 500);
+});
+</script>
+</body>
+  </html>
