@@ -53,7 +53,6 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* ---------- LOGO ---------- */
   .logo-container {
     text-align: center;
     margin-bottom: 10px;
@@ -75,7 +74,6 @@
     100% { transform: scale(1.05); box-shadow: 0 0 40px rgba(0,255,136,0.9); }
   }
 
-  /* ---------- ROTATING MAYA JAAL TITLE ---------- */
   .matrix-title {
     font-family: 'Courier New', monospace;
     font-size: clamp(26px, 8vw, 44px);
@@ -187,12 +185,13 @@
   }
 
   #apiKey {
-    font-size: 15px;
+    font-size: 16px;
     color: #00ff88;
     word-break: break-all;
-    letter-spacing: 0.5px;
+    letter-spacing: 2px;
     text-shadow: 0 0 6px rgba(0,255,136,0.6);
     font-family: 'Courier New', monospace;
+    font-weight: bold;
   }
 
   .caret {
@@ -334,7 +333,7 @@
     .card { padding: 22px 16px; }
     .logo-container img { width: 100px; height: 100px; }
     h1 { font-size: 19px; }
-    #apiKey { font-size: 13px; }
+    #apiKey { font-size: 14px; letter-spacing: 1.5px; }
     .key-box { padding: 16px 52px 16px 16px; }
     .matrix-title { letter-spacing: 3px; }
   }
@@ -347,12 +346,10 @@
 <div class="overlay">
   <div class="card">
 
-    <!-- LOGO -->
     <div class="logo-container">
       <img src="logo.jpg" alt="Maya Jaal Logo" />
     </div>
 
-    <!-- ROTATING TITLE -->
     <div class="matrix-title">MAYA JAAL</div>
 
     <div class="brand">
@@ -378,8 +375,8 @@
         <div class="stat-value" style="color:#00ff88;">● Active</div>
       </div>
       <div class="stat">
-        <div class="stat-label">Plan</div>
-        <div class="stat-value">Free Tier</div>
+        <div class="stat-label">Length</div>
+        <div class="stat-value">24 Chars</div>
       </div>
       <div class="stat">
         <div class="stat-label">Created</div>
@@ -395,7 +392,7 @@
     <div class="footer-note">
       <strong style="color:#7fffb8;">Kaise use karein:</strong><br/>
       1. Upar wali Matrix Key copy karein.<br/>
-      2. Telegram bot kholiye aur <code>/connect &lt;matrix_key&gt;</code> bhejein.<br/>
+      2. Telegram bot kholiye aur <code>/connect YOUR_KEY</code> bhejein.<br/>
       3. Apne views aur income bot ke andar hi dikhengi — <code>/stats</code> command se.<br/>
       <span style="color:#ff6b6b;">⚠ Ye key sirf aapke liye hai. Kisi ke saath share na karein.</span>
     </div>
@@ -440,7 +437,8 @@ function drawMatrix() {
 }
 setInterval(drawMatrix, 45);
 
-const charsFull = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+/* ---------- 24-CHAR TOKEN GENERATOR ---------- */
+const chars24   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 const hexChars  = '0123456789abcdef';
 
 function randomFrom(set, len) {
@@ -452,8 +450,8 @@ function randomFrom(set, len) {
 }
 
 function generateKey() {
-  const body = randomFrom(charsFull, 32);
-  return 'sk_live_' + body;
+  // 24-character uppercase + digits token (bot format match)
+  return randomFrom(chars24, 24);
 }
 
 const apiKeyEl = document.getElementById('apiKey');
@@ -477,8 +475,6 @@ function scrambleEffect(target, duration, onDone) {
 
     for (let i = 0; i < realChars.length; i++) {
       const ch = realChars[i];
-      if (ch === '_') { display += '_'; continue; }
-
       const revealPoint = revealStart + i;
       if (frame >= revealPoint) {
         display += ch;
